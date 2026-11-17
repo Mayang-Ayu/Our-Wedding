@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let targetCountdownDate = null;
     let isPlaying = false;
 
-    // Tidak ada foto otomatis; murni kosong sampai user memilih file
+    // Tidak ada foto otomatis; kosong total sampai user mengunggah file
     let uploadedGroomPhoto = "";
     let uploadedBridePhoto = "";
     let uploadedGalleryPhotos = [];
 
-    // Pastikan seluruh form bersih saat halaman dimuat ulang
+    // Pastikan seluruh form kosong saat halaman dimuat
     builderForm.reset();
 
     // Cek Parameter URL (?to=Nama+Tamu)
@@ -83,17 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Submit Form -> Render Hasil Undangan dari Input User
-    builderForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const groomNick = document.getElementById("in-groom-nick").value.trim();
-        const groomFull = document.getElementById("in-groom-full").value.trim();
+    // Fungsi Render & Tampilkan Hasil Undangan
+    function renderAndShowInvitation() {
+        const groomNick = document.getElementById("in-groom-nick").value.trim() || "Mempelai Pria";
+        const groomFull = document.getElementById("in-groom-full").value.trim() || groomNick;
         const groomParents = document.getElementById("in-groom-parents").value.trim();
         const groomIg = document.getElementById("in-groom-ig").value.trim();
 
-        const brideNick = document.getElementById("in-bride-nick").value.trim();
-        const brideFull = document.getElementById("in-bride-full").value.trim();
+        const brideNick = document.getElementById("in-bride-nick").value.trim() || "Mempelai Wanita";
+        const brideFull = document.getElementById("in-bride-full").value.trim() || brideNick;
         const brideParents = document.getElementById("in-bride-parents").value.trim();
         const brideIg = document.getElementById("in-bride-ig").value.trim();
 
@@ -111,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const bankNumber = document.getElementById("in-bank-number").value.trim();
         const bankHolder = document.getElementById("in-bank-holder").value.trim();
 
-        // Sampul & Judul
+        // Update Sampul & Judul
         document.title = `The Wedding of ${groomNick} & ${brideNick}`;
         document.getElementById("out-cover-couple").textContent = `${groomNick} & ${brideNick}`;
         document.getElementById("out-footer-couple").textContent = `${groomNick} & ${brideNick}`;
@@ -123,9 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const month = String(d.getMonth() + 1).padStart(2, "0");
             const year = d.getFullYear();
             document.getElementById("out-cover-date").textContent = `${day} . ${month} . ${year}`;
+        } else {
+            targetCountdownDate = null;
+            document.getElementById("out-cover-date").textContent = dateText;
         }
 
-        // Hero & Kutipan
+        // Update Hero & Kutipan
         document.getElementById("out-hero-groom").textContent = groomFull.split(",")[0];
         document.getElementById("out-hero-bride").textContent = brideFull.split(",")[0];
 
@@ -144,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
             verseBox.classList.add("hidden");
         }
 
-        // Mempelai Pria (Bingkai foto hanya tampil jika foto diunggah)
+        // Update Mempelai Pria
         document.getElementById("out-groom-full").textContent = groomFull;
         document.getElementById("out-groom-parents").textContent = groomParents;
 
@@ -167,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
             groomPhotoContainer.classList.add("hidden");
         }
 
-        // Mempelai Wanita (Bingkai foto hanya tampil jika foto diunggah)
+        // Update Mempelai Wanita
         document.getElementById("out-bride-full").textContent = brideFull;
         document.getElementById("out-bride-parents").textContent = brideParents;
 
@@ -190,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
             bridePhotoContainer.classList.add("hidden");
         }
 
-        // Detail Acara
+        // Update Detail Acara
         document.querySelectorAll(".out-date-text").forEach(el => el.textContent = dateText);
         document.getElementById("out-akad-time").textContent = akadTime;
         document.getElementById("out-resepsi-time").textContent = resepsiTime;
@@ -206,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Galeri Foto (Hanya tampil jika ada foto diunggah)
+        // Update Galeri Foto
         const gallerySection = document.getElementById("gallery-section");
         const galleryGrid = document.getElementById("out-gallery-grid");
         galleryGrid.innerHTML = "";
@@ -222,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
             gallerySection.classList.add("hidden");
         }
 
-        // Amplop Digital (Hanya tampil jika bank & nomor rekening diisi)
+        // Update Amplop Digital
         const giftCardBox = document.getElementById("gift-card-box");
         if (bankName && bankNumber) {
             giftCardBox.classList.remove("hidden");
@@ -241,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
             giftCardBox.classList.add("hidden");
         }
 
-        // Tampilkan Halaman Undangan
+        // Beralih dari Form ke Hasil Undangan
         builderSection.classList.add("hidden");
         invitationApp.classList.remove("hidden");
         cover.style.display = "flex";
@@ -250,7 +251,13 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCountdown();
         window.scrollTo(0, 0);
 
-        showToast("Undangan berhasil dibuat!");
+        showToast("Undangan siap ditampilkan!");
+    }
+
+    // Submit Form
+    builderForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        renderAndShowInvitation();
     });
 
     // Kembali ke Form Editor
@@ -281,6 +288,9 @@ document.addEventListener("DOMContentLoaded", () => {
         mainContent.classList.remove("hidden");
         musicToggle.classList.remove("hidden");
 
+        // Aktifkan langsung semua elemen reveal agar tidak ada yang tersembunyi
+        document.querySelectorAll(".reveal").forEach((el) => el.classList.add("active"));
+
         bgMusic.play().then(() => {
             isPlaying = true;
             musicToggle.classList.add("playing");
@@ -288,7 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
             cover.style.display = "none";
-            triggerReveal();
         }, 850);
     });
 
@@ -305,7 +314,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Countdown Timer
     const updateCountdown = () => {
-        if (!targetCountdownDate) return;
+        if (!targetCountdownDate) {
+            document.getElementById("days").textContent = "00";
+            document.getElementById("hours").textContent = "00";
+            document.getElementById("minutes").textContent = "00";
+            document.getElementById("seconds").textContent = "00";
+            return;
+        }
         const now = new Date().getTime();
         const distance = targetCountdownDate - now;
 
@@ -388,18 +403,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
         }[m]));
     }
-
-    // Scroll Reveal
-    const reveals = document.querySelectorAll(".reveal");
-    function triggerReveal() {
-        const windowHeight = window.innerHeight;
-        reveals.forEach((el) => {
-            if (el.getBoundingClientRect().top < windowHeight - 80) {
-                el.classList.add("active");
-            }
-        });
-    }
-    window.addEventListener("scroll", triggerReveal);
 
     // Partikel Cahaya Ethereal Canvas
     const canvas = document.getElementById("ethereal-canvas");
