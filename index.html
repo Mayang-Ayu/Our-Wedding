@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ethereal Wedding Invitation Studio</title>
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,12 +12,8 @@
 </head>
 <body>
 
-    <!-- Partikel Cahaya Ethereal -->
     <canvas id="ethereal-canvas"></canvas>
 
-    <!-- =========================================================
-         BAGIAN 1: FORMULIR PEMBUAT UNDANGAN (KOSONG MANUAL)
-         ========================================================= -->
     <section id="builder-section" class="builder-wrapper">
         <div class="container">
             <div class="builder-header text-center">
@@ -29,7 +23,7 @@
             </div>
 
             <form id="builder-form" class="builder-grid" autocomplete="off">
-                <!-- Card 1: Mempelai Pria -->
+
                 <div class="glass-card builder-card">
                     <h3>1. Mempelai Pria</h3>
                     <div class="form-group">
@@ -55,7 +49,6 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Mempelai Wanita -->
                 <div class="glass-card builder-card">
                     <h3>2. Mempelai Wanita</h3>
                     <div class="form-group">
@@ -81,7 +74,6 @@
                     </div>
                 </div>
 
-                <!-- Card 3: Detail Acara -->
                 <div class="glass-card builder-card">
                     <h3>3. Waktu &amp; Lokasi Acara</h3>
                     <div class="form-group">
@@ -114,7 +106,6 @@
                     </div>
                 </div>
 
-                <!-- Card 4: Galeri, Kutipan & Amplop Digital -->
                 <div class="glass-card builder-card">
                     <h3>4. Galeri, Kutipan &amp; Amplop Digital</h3>
                     <div class="form-group">
@@ -144,7 +135,6 @@
                     </div>
                 </div>
 
-                <!-- Tombol Aksi -->
                 <div class="builder-actions text-center">
                     <button type="submit" id="btn-generate-result" class="btn-ethereal btn-lg">Buat &amp; Lihat Hasil Undangan</button>
                     <button type="button" id="clear-builder" class="btn-outline">Kosongkan Semua Form</button>
@@ -153,22 +143,16 @@
         </div>
     </section>
 
-    <!-- =========================================================
-         BAGIAN 2: HASIL AKHIR UNDANGAN PERNIKAHAN (ETHEREAL)
-         ========================================================= -->
     <div id="invitation-app" class="hidden">
-        
-        <!-- Musik Latar -->
+
         <audio id="bg-music" loop>
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
         </audio>
-        
-        <!-- Tombol Kontrol Melayang -->
+
         <button type="button" id="back-to-editor" class="floating-edit-btn" title="Edit Isi Undangan">✎ Edit Data</button>
         <button type="button" id="share-guest-btn" class="floating-share-btn" title="Buat Link Tamu">🔗 Link Tamu</button>
         <button type="button" id="music-toggle" class="music-btn hidden" aria-label="Toggle Music">♪</button>
 
-        <!-- SAMPUL PEMBUKA (COVER OVERLAY) -->
         <section id="cover" class="cover-overlay">
             <div class="cover-content glass-card">
                 <p class="subtitle">THE WEDDING OF</p>
@@ -186,10 +170,8 @@
             </div>
         </section>
 
-        <!-- KONTEN UTAMA UNDANGAN -->
         <main id="main-content" class="main-wrapper hidden">
-            
-            <!-- Hero Section -->
+
             <header class="hero section-padding reveal">
                 <div class="container text-center">
                     <p class="subtitle">WE ARE GETTING MARRIED</p>
@@ -205,7 +187,6 @@
                 </div>
             </header>
 
-            <!-- Profil Mempelai -->
             <section class="couple section-padding reveal">
                 <div class="container">
                     <div class="section-header text-center">
@@ -214,7 +195,7 @@
                     </div>
 
                     <div class="couple-grid">
-                        <!-- Mempelai Pria -->
+
                         <div class="couple-card glass-card">
                             <div id="groom-photo-container" class="photo-frame hidden">
                                 <img id="out-groom-photo" src="" alt="Mempelai Pria">
@@ -224,7 +205,6 @@
                             <a id="out-groom-ig" href="#" target="_blank" class="social-link hidden"></a>
                         </div>
 
-                        <!-- Mempelai Wanita -->
                         <div class="couple-card glass-card">
                             <div id="bride-photo-container" class="photo-frame hidden">
                                 <img id="out-bride-photo" src="" alt="Mempelai Wanita">
@@ -237,7 +217,6 @@
                 </div>
             </section>
 
-            <!-- Hitung Mundur -->
             <section class="countdown-section section-padding reveal">
                 <div class="container text-center">
                     <div class="glass-card countdown-box">
@@ -252,7 +231,6 @@
                 </div>
             </section>
 
-            <!-- Detail Acara -->
             <section class="events section-padding reveal">
                 <div class="container">
                     <div class="section-header text-center">
@@ -282,7 +260,6 @@
                 </div>
             </section>
 
-            <!-- Galeri Foto -->
             <section id="gallery-section" class="gallery section-padding reveal hidden">
                 <div class="container">
                     <div class="section-header text-center">
@@ -293,7 +270,6 @@
                 </div>
             </section>
 
-            <!-- Amplop Digital & RSVP -->
             <section class="rsvp-gift section-padding reveal">
                 <div class="container">
                     <div class="rsvp-grid">
@@ -313,7 +289,6 @@
                             <div id="wishes-list" class="wishes-list"></div>
                         </div>
 
-                        <!-- Kartu Amplop Digital -->
                         <div id="gift-card-box" class="glass-card text-center gift-card hidden">
                             <p class="subtitle">WEDDING GIFT</p>
                             <h3>Tanda Kasih</h3>
@@ -337,7 +312,6 @@
         </main>
     </div>
 
-    <!-- Modal Generator Link Tamu -->
     <div id="guest-modal" class="modal-backdrop hidden">
         <div class="glass-card modal-box text-center">
             <h3>Buat Link Khusus Tamu</h3>
@@ -350,7 +324,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
     <script src="script.js"></script>
