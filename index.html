@@ -18,133 +18,136 @@
     <canvas id="ethereal-canvas"></canvas>
 
     <!-- =========================================================
-         BAGIAN 1: PANEL PEMBUAT & KUSTOMISASI UNDANGAN (EDITOR)
+         BAGIAN 1: FORMULIR KUSTOMISASI (KOSONG TOTAL)
          ========================================================= -->
     <section id="builder-section" class="builder-wrapper">
         <div class="container">
             <div class="builder-header text-center">
                 <p class="subtitle">ETHEREAL WEDDING STUDIO</p>
                 <h1>Buat Undangan Pernikahan Anda</h1>
-                <p class="builder-desc">Sesuaikan nama, foto, jadwal acara, hingga amplop digital di bawah ini untuk menghasilkan undangan pernikahan digital yang elegan.</p>
+                <p class="builder-desc">Isi data pernikahan dan unggah foto secara manual di bawah ini untuk menghasilkan undangan digital bernuansa ethereal dan elegan.</p>
             </div>
 
-            <form id="builder-form" class="builder-grid">
-                <!-- Card 1: Informasi Mempelai Pria -->
+            <form id="builder-form" class="builder-grid" autocomplete="off">
+                <!-- Card 1: Mempelai Pria -->
                 <div class="glass-card builder-card">
                     <h3>1. Mempelai Pria</h3>
                     <div class="form-group">
-                        <label>Nama Panggilan (Untuk Sampul)</label>
-                        <input type="text" id="in-groom-nick" value="Arka" required>
+                        <label>Nama Panggilan (Untuk Sampul) *</label>
+                        <input type="text" id="in-groom-nick" required>
                     </div>
                     <div class="form-group">
-                        <label>Nama Lengkap & Gelar</label>
-                        <input type="text" id="in-groom-full" value="Arka Mahendra, S.T." required>
+                        <label>Nama Lengkap &amp; Gelar *</label>
+                        <input type="text" id="in-groom-full" required>
                     </div>
                     <div class="form-group">
-                        <label>Keterangan Orang Tua</label>
-                        <input type="text" id="in-groom-parents" value="Putra Pertama dari Bapak Hendra Wijaya & Ibu Ratna Sari" required>
+                        <label>Keterangan Orang Tua *</label>
+                        <input type="text" id="in-groom-parents" required>
                     </div>
                     <div class="form-group">
-                        <label>Username Instagram</label>
-                        <input type="text" id="in-groom-ig" value="@arkamahendra">
+                        <label>Username Instagram (Opsional)</label>
+                        <input type="text" id="in-groom-ig">
                     </div>
                     <div class="form-group">
-                        <label>Upload Foto Mempelai Pria</label>
+                        <label>Upload Foto Mempelai Pria (Opsional)</label>
                         <input type="file" id="in-groom-photo" accept="image/*">
+                        <small class="file-status" id="status-groom-photo">Belum ada foto diunggah</small>
                     </div>
                 </div>
 
-                <!-- Card 2: Informasi Mempelai Wanita -->
+                <!-- Card 2: Mempelai Wanita -->
                 <div class="glass-card builder-card">
                     <h3>2. Mempelai Wanita</h3>
                     <div class="form-group">
-                        <label>Nama Panggilan (Untuk Sampul)</label>
-                        <input type="text" id="in-bride-nick" value="Elena" required>
+                        <label>Nama Panggilan (Untuk Sampul) *</label>
+                        <input type="text" id="in-bride-nick" required>
                     </div>
                     <div class="form-group">
-                        <label>Nama Lengkap & Gelar</label>
-                        <input type="text" id="in-bride-full" value="Elena Putri, S.Ds." required>
+                        <label>Nama Lengkap &amp; Gelar *</label>
+                        <input type="text" id="in-bride-full" required>
                     </div>
                     <div class="form-group">
-                        <label>Keterangan Orang Tua</label>
-                        <input type="text" id="in-bride-parents" value="Putri Bungsu dari Bapak Surya Pratama & Ibu Maya Indah" required>
+                        <label>Keterangan Orang Tua *</label>
+                        <input type="text" id="in-bride-parents" required>
                     </div>
                     <div class="form-group">
-                        <label>Username Instagram</label>
-                        <input type="text" id="in-bride-ig" value="@elenaputri">
+                        <label>Username Instagram (Opsional)</label>
+                        <input type="text" id="in-bride-ig">
                     </div>
                     <div class="form-group">
-                        <label>Upload Foto Mempelai Wanita</label>
+                        <label>Upload Foto Mempelai Wanita (Opsional)</label>
                         <input type="file" id="in-bride-photo" accept="image/*">
+                        <small class="file-status" id="status-bride-photo">Belum ada foto diunggah</small>
                     </div>
                 </div>
 
-                <!-- Card 3: Detail Acara & Countdown -->
+                <!-- Card 3: Detail Acara -->
                 <div class="glass-card builder-card">
-                    <h3>3. Waktu & Lokasi Acara</h3>
+                    <h3>3. Waktu &amp; Lokasi Acara</h3>
                     <div class="form-group">
-                        <label>Tanggal & Jam Utama (Untuk Hitung Mundur)</label>
-                        <input type="datetime-local" id="in-countdown-date" value="2026-12-24T08:00" required>
+                        <label>Tanggal &amp; Jam Utama (Untuk Hitung Mundur) *</label>
+                        <input type="datetime-local" id="in-countdown-date" required>
                     </div>
                     <div class="form-group">
-                        <label>Teks Tanggal Tampilan</label>
-                        <input type="text" id="in-date-text" value="Kamis, 24 Desember 2026" required>
+                        <label>Teks Hari &amp; Tanggal Tampilan *</label>
+                        <input type="text" id="in-date-text" required>
                     </div>
                     <div class="form-group">
-                        <label>Jam Akad Nikah</label>
-                        <input type="text" id="in-akad-time" value="08.00 – 10.00 WIB" required>
+                        <label>Waktu Akad Nikah *</label>
+                        <input type="text" id="in-akad-time" required>
                     </div>
                     <div class="form-group">
-                        <label>Jam Resepsi</label>
-                        <input type="text" id="in-resepsi-time" value="11.00 – 14.00 WIB" required>
+                        <label>Waktu Resepsi *</label>
+                        <input type="text" id="in-resepsi-time" required>
                     </div>
                     <div class="form-group">
-                        <label>Nama Gedung / Venue</label>
-                        <input type="text" id="in-venue-name" value="Glasshouse Conservatory" required>
+                        <label>Nama Gedung / Venue *</label>
+                        <input type="text" id="in-venue-name" required>
                     </div>
                     <div class="form-group">
-                        <label>Alamat Lengkap</label>
-                        <input type="text" id="in-venue-address" value="Jl. Taman Bunga No. 12, Jakarta Selatan" required>
+                        <label>Alamat Lengkap *</label>
+                        <input type="text" id="in-venue-address" required>
                     </div>
                     <div class="form-group">
-                        <label>Link Google Maps</label>
-                        <input type="url" id="in-maps-url" value="https://maps.google.com">
+                        <label>Link Google Maps (Opsional)</label>
+                        <input type="url" id="in-maps-url">
                     </div>
                 </div>
 
                 <!-- Card 4: Galeri, Kutipan & Amplop Digital -->
                 <div class="glass-card builder-card">
-                    <h3>4. Galeri, Kutipan & Amplop Digital</h3>
+                    <h3>4. Galeri, Kutipan &amp; Amplop Digital</h3>
                     <div class="form-group">
-                        <label>Ayat / Kutipan Pernikahan</label>
-                        <textarea id="in-verse" rows="2">Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya.</textarea>
+                        <label>Ayat / Kutipan Pernikahan (Opsional)</label>
+                        <textarea id="in-verse" rows="2"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Sumber Kutipan</label>
-                        <input type="text" id="in-verse-source" value="QS. Ar-Rum: 21">
+                        <label>Sumber Kutipan (Opsional)</label>
+                        <input type="text" id="in-verse-source">
                     </div>
                     <div class="form-group">
-                        <label>Upload Foto Galeri (Bisa pilih hingga 3 foto)</label>
+                        <label>Upload Foto Galeri (Maks. 3 foto, Opsional)</label>
                         <input type="file" id="in-gallery-photos" accept="image/*" multiple>
+                        <small class="file-status" id="status-gallery-photos">Belum ada foto diunggah</small>
                     </div>
                     <div class="form-group">
-                        <label>Nama Bank / E-Wallet</label>
-                        <input type="text" id="in-bank-name" value="BANK BCA">
+                        <label>Nama Bank / E-Wallet (Opsional)</label>
+                        <input type="text" id="in-bank-name">
                     </div>
                     <div class="form-group">
-                        <label>Nomor Rekening</label>
-                        <input type="text" id="in-bank-number" value="8735091234">
+                        <label>Nomor Rekening / E-Wallet (Opsional)</label>
+                        <input type="text" id="in-bank-number">
                     </div>
                     <div class="form-group">
-                        <label>Atas Nama Rekening</label>
-                        <input type="text" id="in-bank-holder" value="Arka Mahendra">
+                        <label>Atas Nama Rekening (Opsional)</label>
+                        <input type="text" id="in-bank-holder">
                     </div>
                 </div>
 
-                <!-- Tombol Submit Full Width -->
+                <!-- Tombol Aksi -->
                 <div class="builder-actions text-center">
-                    <button type="submit" class="btn-ethereal btn-lg">Terapkan &amp; Lihat Hasil Undangan</button>
-                    <button type="button" id="reset-builder" class="btn-outline">Reset ke Default</button>
+                    <button type="submit" class="btn-ethereal btn-lg">Buat &amp; Lihat Hasil Undangan</button>
+                    <button type="button" id="clear-builder" class="btn-outline">Hapus Semua Isian</button>
                 </div>
             </form>
         </div>
@@ -161,16 +164,16 @@
         </audio>
         
         <!-- Tombol Kontrol Melayang -->
-        <button id="back-to-editor" class="floating-edit-btn" title="Edit Isi Undangan">✎ Edit Undangan</button>
+        <button id="back-to-editor" class="floating-edit-btn" title="Edit Isi Undangan">✎ Edit Data</button>
         <button id="share-guest-btn" class="floating-share-btn" title="Buat Link Tamu">🔗 Link Tamu</button>
         <button id="music-toggle" class="music-btn hidden" aria-label="Toggle Music">♪</button>
 
-        <!-- SAMPUL PEMBUKA (COVER OVERLAY) -->
+        <!-- SAMPUL PEMBUKA -->
         <section id="cover" class="cover-overlay">
             <div class="cover-content glass-card fade-in">
                 <p class="subtitle">THE WEDDING OF</p>
-                <h1 id="out-cover-couple" class="couple-title">Arka &amp; Elena</h1>
-                <p id="out-cover-date" class="date-badge">24 . 12 . 2026</p>
+                <h1 id="out-cover-couple" class="couple-title"></h1>
+                <p id="out-cover-date" class="date-badge"></p>
                 
                 <div class="guest-box">
                     <p class="guest-label">Kepada Yth. Bapak/Ibu/Saudara/i</p>
@@ -191,13 +194,13 @@
                 <div class="container text-center">
                     <p class="subtitle">WE ARE GETTING MARRIED</p>
                     <h1 class="hero-names">
-                        <span id="out-hero-groom">Arka Mahendra</span>
+                        <span id="out-hero-groom"></span>
                         <br><span class="ampersand">&amp;</span><br>
-                        <span id="out-hero-bride">Elena Putri</span>
+                        <span id="out-hero-bride"></span>
                     </h1>
-                    <p class="verse">
-                        "<span id="out-verse">Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya.</span>"
-                        <br><span>— <span id="out-verse-source">QS. Ar-Rum: 21</span></span>
+                    <p id="out-verse-box" class="verse hidden">
+                        "<span id="out-verse"></span>"
+                        <br><span id="out-verse-source-wrap">— <span id="out-verse-source"></span></span>
                     </p>
                 </div>
             </header>
@@ -213,146 +216,18 @@
                     <div class="couple-grid">
                         <!-- Mempelai Pria -->
                         <div class="couple-card glass-card">
-                            <div class="photo-frame">
-                                <img id="out-groom-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Mempelai Pria">
+                            <div id="groom-photo-container" class="photo-frame hidden">
+                                <img id="out-groom-photo" src="" alt="Mempelai Pria">
                             </div>
-                            <h3 id="out-groom-full">Arka Mahendra, S.T.</h3>
-                            <p id="out-groom-parents" class="parents">Putra Pertama dari<br>Bapak Hendra Wijaya &amp; Ibu Ratna Sari</p>
-                            <a id="out-groom-ig" href="https://instagram.com" target="_blank" class="social-link">@arkamahendra</a>
+                            <h3 id="out-groom-full"></h3>
+                            <p id="out-groom-parents" class="parents"></p>
+                            <a id="out-groom-ig" href="#" target="_blank" class="social-link hidden"></a>
                         </div>
 
                         <!-- Mempelai Wanita -->
                         <div class="couple-card glass-card">
-                            <div class="photo-frame">
-                                <img id="out-bride-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Mempelai Wanita">
+                            <div id="bride-photo-container" class="photo-frame hidden">
+                                <img id="out-bride-photo" src="" alt="Mempelai Wanita">
                             </div>
-                            <h3 id="out-bride-full">Elena Putri, S.Ds.</h3>
-                            <p id="out-bride-parents" class="parents">Putri Bungsu dari<br>Bapak Surya Pratama &amp; Ibu Maya Indah</p>
-                            <a id="out-bride-ig" href="https://instagram.com" target="_blank" class="social-link">@elenaputri</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Hitung Mundur -->
-            <section class="countdown-section section-padding reveal">
-                <div class="container text-center">
-                    <div class="glass-card countdown-box">
-                        <p class="subtitle">MENANTI HARI BAHAGIA</p>
-                        <div id="countdown" class="countdown-grid">
-                            <div class="time-item"><span id="days">00</span><small>Hari</small></div>
-                            <div class="time-item"><span id="hours">00</span><small>Jam</small></div>
-                            <div class="time-item"><span id="minutes">00</span><small>Menit</small></div>
-                            <div class="time-item"><span id="seconds">00</span><small>Detik</small></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Detail Acara -->
-            <section class="events section-padding reveal">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <p class="subtitle">SAVE THE DATE</p>
-                        <h2>Rangkaian Acara</h2>
-                    </div>
-
-                    <div class="events-grid">
-                        <div class="event-card glass-card text-center">
-                            <h3>Akad Nikah</h3>
-                            <div class="divider"></div>
-                            <p class="event-date out-date-text">Kamis, 24 Desember 2026</p>
-                            <p id="out-akad-time" class="event-time">08.00 – 10.00 WIB</p>
-                            <p class="event-venue"><strong class="out-venue-name">Glasshouse Conservatory</strong><br><span class="out-venue-address">Jl. Taman Bunga No. 12, Jakarta Selatan</span></p>
-                            <a href="https://maps.google.com" target="_blank" class="btn-outline out-maps-url">Lihat Lokasi</a>
-                        </div>
-
-                        <div class="event-card glass-card text-center">
-                            <h3>Resepsi Pernikahan</h3>
-                            <div class="divider"></div>
-                            <p class="event-date out-date-text">Kamis, 24 Desember 2026</p>
-                            <p id="out-resepsi-time" class="event-time">11.00 – 14.00 WIB</p>
-                            <p class="event-venue"><strong class="out-venue-name">Glasshouse Conservatory</strong><br><span class="out-venue-address">Jl. Taman Bunga No. 12, Jakarta Selatan</span></p>
-                            <a href="https://maps.google.com" target="_blank" class="btn-outline out-maps-url">Lihat Lokasi</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Galeri Foto -->
-            <section class="gallery section-padding reveal">
-                <div class="container">
-                    <div class="section-header text-center">
-                        <p class="subtitle">MOMENTS</p>
-                        <h2>Galeri Kasih</h2>
-                    </div>
-                    <div id="out-gallery-grid" class="gallery-grid">
-                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Prewedding 1"></div>
-                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Prewedding 2"></div>
-                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80" alt="Prewedding 3"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Amplop Digital & RSVP -->
-            <section class="rsvp-gift section-padding reveal">
-                <div class="container">
-                    <div class="rsvp-grid">
-                        <div class="glass-card">
-                            <p class="subtitle">KONFIRMASI KEHADIRAN</p>
-                            <h3>RSVP &amp; Ucapan</h3>
-                            <form id="rsvp-form" class="rsvp-form">
-                                <input type="text" id="sender-name" placeholder="Nama Lengkap Anda" required>
-                                <select id="attendance" required>
-                                    <option value="" disabled selected>Konfirmasi Kehadiran</option>
-                                    <option value="Hadir">Ya, Saya Akan Hadir</option>
-                                    <option value="Tidak Hadir">Maaf, Berhalangan Hadir</option>
-                                </select>
-                                <textarea id="wish-message" rows="3" placeholder="Tuliskan doa & ucapan hangat Anda..." required></textarea>
-                                <button type="submit" class="btn-ethereal w-100">Kirim Ucapan</button>
-                            </form>
-                            <div id="wishes-list" class="wishes-list"></div>
-                        </div>
-
-                        <div class="glass-card text-center gift-card">
-                            <p class="subtitle">WEDDING GIFT</p>
-                            <h3>Tanda Kasih</h3>
-                            <p class="gift-desc">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat mengirimkannya melalui:</p>
-                            
-                            <div class="bank-box">
-                                <p id="out-bank-name" class="bank-name">BANK BCA</p>
-                                <p id="out-bank-number" class="account-number">8735091234</p>
-                                <p class="account-holder">a.n. <span id="out-bank-holder">Arka Mahendra</span></p>
-                                <button id="copy-rek-btn" class="btn-outline copy-btn" data-copy="8735091234">Salin Nomor Rekening</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <footer class="footer text-center">
-                <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
-                <h2 id="out-footer-couple" class="footer-names">Arka &amp; Elena</h2>
-            </footer>
-        </main>
-    </div>
-
-    <!-- Modal Generator Link Tamu -->
-    <div id="guest-modal" class="modal-backdrop hidden">
-        <div class="glass-card modal-box text-center">
-            <h3>Buat Link Khusus Tamu</h3>
-            <p class="gift-desc">Masukkan nama tamu untuk membuat tautan undangan personal:</p>
-            <input type="text" id="custom-guest-input" class="modal-input" placeholder="Contoh: Bapak Budi & Keluarga">
-            <div class="modal-actions">
-                <button id="copy-guest-link" class="btn-ethereal">Salin Link Tamu</button>
-                <button id="close-guest-modal" class="btn-outline">Tutup</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">Berhasil!</div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                            <h3 id="out-bride-full"></h3>
+                            <p id="out-bride-parents" class="
