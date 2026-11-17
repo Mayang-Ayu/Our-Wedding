@@ -1,364 +1,605 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Elemen Utama
-    const builderSection = document.getElementById("builder-section");
-    const invitationApp = document.getElementById("invitation-app");
-    const builderForm = document.getElementById("builder-form");
-    const backToEditorBtn = document.getElementById("back-to-editor");
-    const resetBuilderBtn = document.getElementById("reset-builder");
+/* =========================================
+   VARIABLES & RESET
+   ========================================= */
+:root {
+    --bg-gradient: linear-gradient(135deg, #fdfcfb 0%, #f3efe8 50%, #e9ede8 100%);
+    --glass-bg: rgba(255, 255, 255, 0.62);
+    --glass-border: rgba(255, 255, 255, 0.88);
+    --text-main: #3a3835;
+    --text-muted: #76716a;
+    --accent-gold: #b59a6d;
+    --accent-gold-hover: #9c8154;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --shadow-soft: 0 20px 50px rgba(138, 126, 108, 0.09);
+}
 
-    // Elemen Sampul & Konten
-    const cover = document.getElementById("cover");
-    const mainContent = document.getElementById("main-content");
-    const openBtn = document.getElementById("open-invitation");
-    const bgMusic = document.getElementById("bg-music");
-    const musicToggle = document.getElementById("music-toggle");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    let targetCountdownDate = new Date("2026-12-24T08:00:00").getTime();
-    let isPlaying = false;
+html {
+    scroll-behavior: smooth;
+}
 
-    // Default Foto
-    const defaultGroomImg = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80";
-    const defaultBrideImg = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80";
-    const defaultGalleryImgs = [
-        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80",
-        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80",
-        "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80"
-    ];
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
 
-    let customGroomPhoto = defaultGroomImg;
-    let customBridePhoto = defaultBrideImg;
-    let customGalleryPhotos = [...defaultGalleryImgs];
+#ethereal-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
 
-    // 1. Cek Parameter URL (?to=Nama+Tamu & ?mode=view)
-    const urlParams = new URLSearchParams(window.location.search);
-    const guestParam = urlParams.get("to");
-    const modeParam = urlParams.get("mode");
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.2rem;
+    box-shadow: var(--shadow-soft);
+}
 
-    if (guestParam) {
-        document.getElementById("guest-name").textContent = guestParam;
-    }
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    color: var(--text-main);
+}
 
-    // Jika dibuka langsung oleh tamu dengan ?mode=view atau ?to=..., langsung tampilkan undangan
-    if (modeParam === "view" || guestParam) {
-        builderSection.classList.add("hidden");
-        invitationApp.classList.remove("hidden");
-    }
+.subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 0.65rem;
+    font-weight: 500;
+}
 
-    // 2. Preview Upload Foto Instan (FileReader)
-    document.getElementById("in-groom-photo").addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (ev) => { customGroomPhoto = ev.target.result; };
-            reader.readAsDataURL(file);
-        }
-    });
+.container {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+}
 
-    document.getElementById("in-bride-photo").addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (ev) => { customBridePhoto = ev.target.result; };
-            reader.readAsDataURL(file);
-        }
-    });
+.section-padding { padding: 5.5rem 0; }
+.text-center { text-align: center; }
+.w-100 { width: 100%; }
+.hidden { display: none !important; }
 
-    document.getElementById("in-gallery-photos").addEventListener("change", (e) => {
-        const files = Array.from(e.target.files).slice(0, 3);
-        if (files.length > 0) {
-            customGalleryPhotos = [];
-            files.forEach((file) => {
-                const reader = new FileReader();
-                reader.onload = (ev) => { customGalleryPhotos.push(ev.target.result); };
-                reader.readAsDataURL(file);
-            });
-        }
-    });
+/* =========================================
+   BUTTONS
+   ========================================= */
+.btn-ethereal {
+    display: inline-block;
+    background: var(--accent-gold);
+    color: #fff;
+    border: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    box-shadow: 0 10px 25px rgba(181, 154, 109, 0.28);
+}
 
-    // 3. Submit Form Builder -> Terapkan ke Template Undangan
-    builderForm.addEventListener("submit", (e) => {
-        e.preventDefault();
+.btn-ethereal:hover {
+    background: var(--accent-gold-hover);
+    transform: translateY(-2px);
+}
 
-        // Ambil nilai input
-        const groomNick = document.getElementById("in-groom-nick").value.trim();
-        const groomFull = document.getElementById("in-groom-full").value.trim();
-        const groomParents = document.getElementById("in-groom-parents").value.trim();
-        const groomIg = document.getElementById("in-groom-ig").value.trim();
+.btn-lg {
+    padding: 1.1rem 2.8rem;
+    font-size: 0.95rem;
+}
 
-        const brideNick = document.getElementById("in-bride-nick").value.trim();
-        const brideFull = document.getElementById("in-bride-full").value.trim();
-        const brideParents = document.getElementById("in-bride-parents").value.trim();
-        const brideIg = document.getElementById("in-bride-ig").value.trim();
+.btn-outline {
+    display: inline-block;
+    padding: 0.75rem 1.8rem;
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        const rawDate = document.getElementById("in-countdown-date").value;
-        const dateText = document.getElementById("in-date-text").value.trim();
-        const akadTime = document.getElementById("in-akad-time").value.trim();
-        const resepsiTime = document.getElementById("in-resepsi-time").value.trim();
-        const venueName = document.getElementById("in-venue-name").value.trim();
-        const venueAddress = document.getElementById("in-venue-address").value.trim();
-        const mapsUrl = document.getElementById("in-maps-url").value.trim();
+.btn-outline:hover {
+    background: var(--accent-gold);
+    color: #fff;
+}
 
-        const verse = document.getElementById("in-verse").value.trim();
-        const verseSource = document.getElementById("in-verse-source").value.trim();
-        const bankName = document.getElementById("in-bank-name").value.trim();
-        const bankNumber = document.getElementById("in-bank-number").value.trim();
-        const bankHolder = document.getElementById("in-bank-holder").value.trim();
+/* =========================================
+   BUILDER / CUSTOMIZER PANEL
+   ========================================= */
+.builder-wrapper {
+    padding: 4rem 0 6rem;
+    position: relative;
+    z-index: 5;
+}
 
-        // Update Judul Halaman & Sampul
-        document.title = `The Wedding of ${groomNick} & ${brideNick}`;
-        document.getElementById("out-cover-couple").textContent = `${groomNick} & ${brideNick}`;
-        document.getElementById("out-footer-couple").textContent = `${groomNick} & ${brideNick}`;
+.builder-header {
+    max-width: 680px;
+    margin: 0 auto 3rem;
+}
 
-        if (rawDate) {
-            const d = new Date(rawDate);
-            targetCountdownDate = d.getTime();
-            const day = String(d.getDate()).padStart(2, "0");
-            const month = String(d.getMonth() + 1).padStart(2, "0");
-            const year = d.getFullYear();
-            document.getElementById("out-cover-date").textContent = `${day} . ${month} . ${year}`;
-        }
+.builder-header h1 {
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    margin-bottom: 0.75rem;
+}
 
-        // Update Hero & Kutipan
-        document.getElementById("out-hero-groom").textContent = groomFull.split(",")[0];
-        document.getElementById("out-hero-bride").textContent = brideFull.split(",")[0];
-        document.getElementById("out-verse").textContent = verse;
-        document.getElementById("out-verse-source").textContent = verseSource;
+.builder-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
 
-        // Update Profil Mempelai
-        document.getElementById("out-groom-full").textContent = groomFull;
-        document.getElementById("out-groom-parents").textContent = groomParents;
-        document.getElementById("out-groom-ig").textContent = groomIg;
-        document.getElementById("out-groom-photo").src = customGroomPhoto;
+.builder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.8rem;
+}
 
-        document.getElementById("out-bride-full").textContent = brideFull;
-        document.getElementById("out-bride-parents").textContent = brideParents;
-        document.getElementById("out-bride-ig").textContent = brideIg;
-        document.getElementById("out-bride-photo").src = customBridePhoto;
+.builder-card h3 {
+    font-size: 1.65rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(181, 154, 109, 0.25);
+    color: var(--accent-gold);
+}
 
-        // Update Detail Acara
-        document.querySelectorAll(".out-date-text").forEach(el => el.textContent = dateText);
-        document.getElementById("out-akad-time").textContent = akadTime;
-        document.getElementById("out-resepsi-time").textContent = resepsiTime;
-        document.querySelectorAll(".out-venue-name").forEach(el => el.textContent = venueName);
-        document.querySelectorAll(".out-venue-address").forEach(el => el.textContent = venueAddress);
-        document.querySelectorAll(".out-maps-url").forEach(el => el.href = mapsUrl || "https://maps.google.com");
+.form-group {
+    margin-bottom: 1rem;
+}
 
-        // Update Galeri
-        const galleryGrid = document.getElementById("out-gallery-grid");
-        galleryGrid.innerHTML = "";
-        customGalleryPhotos.forEach((src, index) => {
-            const item = document.createElement("div");
-            item.className = "gallery-item";
-            item.innerHTML = `<img src="${src}" alt="Galeri ${index + 1}">`;
-            galleryGrid.appendChild(item);
-        });
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
 
-        // Update Amplop Digital
-        document.getElementById("out-bank-name").textContent = bankName;
-        document.getElementById("out-bank-number").textContent = bankNumber;
-        document.getElementById("out-bank-holder").textContent = bankHolder;
-        document.getElementById("copy-rek-btn").setAttribute("data-copy", bankNumber);
+.form-group input,
+.form-group textarea,
+.modal-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(181, 154, 109, 0.35);
+    background: rgba(255, 255, 255, 0.85);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
 
-        // Beralih ke Tampilan Undangan (Reset Cover agar bisa dibuka dari awal)
-        builderSection.classList.add("hidden");
-        invitationApp.classList.remove("hidden");
-        cover.style.display = "flex";
-        cover.classList.remove("opened");
-        mainContent.classList.add("hidden");
-        window.scrollTo(0, 0);
+.form-group input:focus,
+.form-group textarea:focus,
+.modal-input:focus {
+    border-color: var(--accent-gold);
+}
 
-        showToast("Undangan berhasil diperbarui!");
-    });
+.file-status {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
 
-    // Tombol Kembali ke Editor
-    backToEditorBtn.addEventListener("click", () => {
-        invitationApp.classList.add("hidden");
-        builderSection.classList.remove("hidden");
-        bgMusic.pause();
-        isPlaying = false;
-        musicToggle.classList.remove("playing");
-        window.scrollTo(0, 0);
-    });
+.builder-actions {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
 
-    // Tombol Reset Form
-    resetBuilderBtn.addEventListener("click", () => {
-        builderForm.reset();
-        customGroomPhoto = defaultGroomImg;
-        customBridePhoto = defaultBrideImg;
-        customGalleryPhotos = [...defaultGalleryImgs];
-        showToast("Form dikembalikan ke pengaturan awal.");
-    });
+/* =========================================
+   FLOATING CONTROLS
+   ========================================= */
+.floating-edit-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 150;
+    background: rgba(58, 56, 53, 0.88);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.65rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
 
-    // 4. Buka Sampul Undangan
-    openBtn.addEventListener("click", () => {
-        cover.classList.add("opened");
-        mainContent.classList.remove("hidden");
-        musicToggle.classList.remove("hidden");
+.floating-edit-btn:hover {
+    background: var(--accent-gold);
+}
 
-        bgMusic.play().then(() => {
-            isPlaying = true;
-            musicToggle.classList.add("playing");
-        }).catch(() => { isPlaying = false; });
+.floating-share-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 145px;
+    z-index: 150;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    color: var(--text-main);
+    border: 1px solid var(--accent-gold);
+    padding: 0.65rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
 
-        setTimeout(() => {
-            cover.style.display = "none";
-            triggerReveal();
-        }, 850);
-    });
+.floating-share-btn:hover {
+    background: var(--accent-gold);
+    color: #fff;
+}
 
-    musicToggle.addEventListener("click", () => {
-        if (isPlaying) {
-            bgMusic.pause();
-            musicToggle.classList.remove("playing");
-        } else {
-            bgMusic.play();
-            musicToggle.classList.add("playing");
-        }
-        isPlaying = !isPlaying;
-    });
+.music-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 150;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--accent-gold);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 
-    // 5. Countdown Timer
-    const updateCountdown = () => {
-        const now = new Date().getTime();
-        const distance = targetCountdownDate - now;
+.music-btn.playing {
+    animation: spin 6s linear infinite;
+}
 
-        if (distance < 0) {
-            document.getElementById("days").textContent = "00";
-            document.getElementById("hours").textContent = "00";
-            document.getElementById("minutes").textContent = "00";
-            document.getElementById("seconds").textContent = "00";
-            return;
-        }
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+/* =========================================
+   COVER OVERLAY & INVITATION CONTENT
+   ========================================= */
+.cover-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: radial-gradient(circle at center, rgba(253, 252, 251, 0.94), rgba(235, 232, 225, 0.97));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    transition: opacity 0.85s ease, transform 0.85s ease;
+}
 
-        document.getElementById("days").textContent = String(days).padStart(2, "0");
-        document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-        document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-        document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
-    };
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+.cover-overlay.opened {
+    opacity: 0;
+    transform: translateY(-30px);
+    pointer-events: none;
+}
 
-    // 6. RSVP & Ucapan
-    const rsvpForm = document.getElementById("rsvp-form");
-    const wishesList = document.getElementById("wishes-list");
+.cover-content {
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    padding: 3.5rem 2rem;
+}
 
-    rsvpForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const name = document.getElementById("sender-name").value.trim();
-        const status = document.getElementById("attendance").value;
-        const message = document.getElementById("wish-message").value.trim();
+.couple-title {
+    font-size: clamp(2.8rem, 6vw, 4rem);
+    font-style: italic;
+    margin: 0.5rem 0;
+}
 
-        const wishItem = document.createElement("div");
-        wishItem.className = "wish-item";
-        wishItem.innerHTML = `
-            <div class="wish-header">
-                <span>${escapeHTML(name)}</span>
-                <span class="wish-badge">${escapeHTML(status)}</span>
-            </div>
-            <p>${escapeHTML(message)}</p>
-        `;
-        wishesList.prepend(wishItem);
-        rsvpForm.reset();
-        showToast("Terima kasih atas doa dan konfirmasi Anda!");
-    });
+.date-badge {
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
 
-    // 7. Salin Nomor Rekening & Modal Link Tamu
-    document.getElementById("copy-rek-btn").addEventListener("click", function () {
-        const rek = this.getAttribute("data-copy");
-        navigator.clipboard.writeText(rek).then(() => showToast("Nomor rekening berhasil disalin!"));
-    });
+.guest-box {
+    margin: 2rem 0;
+    padding: 1.2rem;
+    border-top: 1px solid rgba(181, 154, 109, 0.25);
+    border-bottom: 1px solid rgba(181, 154, 109, 0.25);
+}
 
-    const guestModal = document.getElementById("guest-modal");
-    document.getElementById("share-guest-btn").addEventListener("click", () => {
-        guestModal.classList.remove("hidden");
-    });
-    document.getElementById("close-guest-modal").addEventListener("click", () => {
-        guestModal.classList.add("hidden");
-    });
-    document.getElementById("copy-guest-link").addEventListener("click", () => {
-        const guestName = document.getElementById("custom-guest-input").value.trim() || "Tamu Undangan";
-        const baseUrl = window.location.origin + window.location.pathname;
-        const shareUrl = `${baseUrl}?mode=view&to=${encodeURIComponent(guestName)}`;
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            showToast(`Link untuk "${guestName}" berhasil disalin!`);
-            guestModal.classList.add("hidden");
-        });
-    });
+.guest-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
 
-    function showToast(msg) {
-        const toast = document.getElementById("toast");
-        toast.textContent = msg;
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 3000);
-    }
+.guest-name {
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+}
 
-    function escapeHTML(str) {
-        return str.replace(/[&<>"']/g, (m) => ({
-            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-        }[m]));
-    }
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    // 8. Scroll Reveal
-    const reveals = document.querySelectorAll(".reveal");
-    function triggerReveal() {
-        const windowHeight = window.innerHeight;
-        reveals.forEach((el) => {
-            if (el.getBoundingClientRect().top < windowHeight - 80) {
-                el.classList.add("active");
-            }
-        });
-    }
-    window.addEventListener("scroll", triggerReveal);
+.hero-names {
+    font-size: clamp(3rem, 7vw, 5.2rem);
+    line-height: 1.1;
+    margin: 1rem 0 2rem;
+}
 
-    // 9. Partikel Cahaya Ethereal Canvas
-    const canvas = document.getElementById("ethereal-canvas");
-    const ctx = canvas.getContext("2d");
-    let particles = [];
+.ampersand {
+    font-style: italic;
+    color: var(--accent-gold);
+    font-size: 0.7em;
+}
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+.verse {
+    max-width: 620px;
+    margin: 0 auto;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
 
-    class Particle {
-        constructor() { this.reset(); }
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 3 + 1;
-            this.speedY = -(Math.random() * 0.4 + 0.15);
-            this.speedX = (Math.random() - 0.5) * 0.3;
-            this.opacity = Math.random() * 0.5 + 0.15;
-        }
-        update() {
-            this.y += this.speedY;
-            this.x += this.speedX;
-            if (this.y < -10) {
-                this.y = canvas.height + 10;
-                this.x = Math.random() * canvas.width;
-            }
-        }
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(181, 154, 109, ${this.opacity})`;
-            ctx.fill();
-        }
-    }
+.verse span#out-verse-source-wrap {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--accent-gold);
+}
 
-    for (let i = 0; i < 45; i++) particles.push(new Particle());
+.section-header { margin-bottom: 3rem; }
+.section-header h2 { font-size: 2.6rem; }
 
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((p) => { p.update(); p.draw(); });
-        requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-});
+.couple-grid, .events-grid, .rsvp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.couple-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.photo-frame {
+    width: 190px;
+    height: 240px;
+    margin: 0 auto 1.5rem;
+    border-radius: 100px 100px 20px 20px;
+    overflow: hidden;
+    border: 4px solid #fff;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.couple-card:hover .photo-frame img { transform: scale(1.06); }
+.couple-card h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.parents { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
+.social-link { color: var(--accent-gold); text-decoration: none; font-size: 0.85rem; }
+
+.countdown-box { max-width: 720px; margin: 0 auto; }
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.time-item span {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--accent-gold);
+    line-height: 1;
+}
+
+.time-item small {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+}
+
+.divider {
+    width: 50px;
+    height: 1px;
+    background: var(--accent-gold);
+    margin: 1rem auto;
+}
+
+.event-date { font-weight: 500; margin-bottom: 0.3rem; }
+.event-time { color: var(--accent-gold); margin-bottom: 1rem; }
+.event-venue { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.gallery-item {
+    border-radius: 18px;
+    overflow: hidden;
+    height: 340px;
+    box-shadow: var(--shadow-soft);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.07); }
+
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form textarea {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(181, 154, 109, 0.3);
+    background: rgba(255, 255, 255, 0.75);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text-main);
+    outline: none;
+}
+
+.wishes-list {
+    margin-top: 1.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.wish-item {
+    background: rgba(255, 255, 255, 0.65);
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+}
+
+.wish-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.wish-badge { font-size: 0.7rem; color: var(--accent-gold); }
+.gift-desc { font-size: 0.9rem; color: var(--text-muted); margin: 1rem 0 1.5rem; }
+
+.bank-box {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px dashed var(--accent-gold);
+}
+
+.bank-name { font-weight: 500; letter-spacing: 0.15em; color: var(--accent-gold); }
+.account-number { font-family: var(--font-serif); font-size: 2rem; font-weight: 700; margin: 0.3rem 0; }
+.account-holder { margin-bottom: 1rem; }
+
+.footer {
+    padding: 4rem 1.5rem 6rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-names {
+    font-size: 2.4rem;
+    font-style: italic;
+    margin-top: 1rem;
+    color: var(--accent-gold);
+}
+
+/* =========================================
+   MODAL & TOAST
+   ========================================= */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(58, 56, 53, 0.5);
+    backdrop-filter: blur(6px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.modal-box {
+    max-width: 440px;
+    width: 100%;
+    background: #fcfbf9;
+}
+
+.modal-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+}
+
+.toast {
+    position: fixed;
+    bottom: 85px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--text-main);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    z-index: 300;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.9s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
