@@ -1,605 +1,450 @@
-/* =========================================
-   VARIABLES & RESET
-   ========================================= */
-:root {
-    --bg-gradient: linear-gradient(135deg, #fdfcfb 0%, #f3efe8 50%, #e9ede8 100%);
-    --glass-bg: rgba(255, 255, 255, 0.62);
-    --glass-border: rgba(255, 255, 255, 0.88);
-    --text-main: #3a3835;
-    --text-muted: #76716a;
-    --accent-gold: #b59a6d;
-    --accent-gold-hover: #9c8154;
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
-    --shadow-soft: 0 20px 50px rgba(138, 126, 108, 0.09);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-sans);
-    background: var(--bg-gradient);
-    color: var(--text-main);
-    line-height: 1.7;
-    overflow-x: hidden;
-    min-height: 100vh;
-}
-
-#ethereal-canvas {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 2.2rem;
-    box-shadow: var(--shadow-soft);
-}
-
-h1, h2, h3 {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    color: var(--text-main);
-}
-
-.subtitle {
-    font-size: 0.75rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--accent-gold);
-    margin-bottom: 0.65rem;
-    font-weight: 500;
-}
-
-.container {
-    max-width: 1060px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-    z-index: 2;
-}
-
-.section-padding { padding: 5.5rem 0; }
-.text-center { text-align: center; }
-.w-100 { width: 100%; }
-.hidden { display: none !important; }
-
-/* =========================================
-   BUTTONS
-   ========================================= */
-.btn-ethereal {
-    display: inline-block;
-    background: var(--accent-gold);
-    color: #fff;
-    border: none;
-    padding: 0.9rem 2.2rem;
-    border-radius: 50px;
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.35s ease;
-    box-shadow: 0 10px 25px rgba(181, 154, 109, 0.28);
-}
-
-.btn-ethereal:hover {
-    background: var(--accent-gold-hover);
-    transform: translateY(-2px);
-}
-
-.btn-lg {
-    padding: 1.1rem 2.8rem;
-    font-size: 0.95rem;
-}
-
-.btn-outline {
-    display: inline-block;
-    padding: 0.75rem 1.8rem;
-    border: 1px solid var(--accent-gold);
-    color: var(--accent-gold);
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-outline:hover {
-    background: var(--accent-gold);
-    color: #fff;
-}
-
-/* =========================================
-   BUILDER / CUSTOMIZER PANEL
-   ========================================= */
-.builder-wrapper {
-    padding: 4rem 0 6rem;
-    position: relative;
-    z-index: 5;
-}
-
-.builder-header {
-    max-width: 680px;
-    margin: 0 auto 3rem;
-}
-
-.builder-header h1 {
-    font-size: clamp(2.4rem, 5vw, 3.4rem);
-    margin-bottom: 0.75rem;
-}
-
-.builder-desc {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-}
-
-.builder-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.8rem;
-}
-
-.builder-card h3 {
-    font-size: 1.65rem;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(181, 154, 109, 0.25);
-    color: var(--accent-gold);
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    margin-bottom: 0.35rem;
-}
-
-.form-group input,
-.form-group textarea,
-.modal-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    border: 1px solid rgba(181, 154, 109, 0.35);
-    background: rgba(255, 255, 255, 0.85);
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-    color: var(--text-main);
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.modal-input:focus {
-    border-color: var(--accent-gold);
-}
-
-.file-status {
-    display: block;
-    margin-top: 0.3rem;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-style: italic;
-}
-
-.builder-actions {
-    grid-column: 1 / -1;
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* =========================================
-   FLOATING CONTROLS
-   ========================================= */
-.floating-edit-btn {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    z-index: 150;
-    background: rgba(58, 56, 53, 0.88);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 0.65rem 1.2rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-}
-
-.floating-edit-btn:hover {
-    background: var(--accent-gold);
-}
-
-.floating-share-btn {
-    position: fixed;
-    bottom: 24px;
-    left: 145px;
-    z-index: 150;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
-    color: var(--text-main);
-    border: 1px solid var(--accent-gold);
-    padding: 0.65rem 1.2rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-.floating-share-btn:hover {
-    background: var(--accent-gold);
-    color: #fff;
-}
-
-.music-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 150;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    border: 1px solid var(--glass-border);
-    background: var(--accent-gold);
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.music-btn.playing {
-    animation: spin 6s linear infinite;
-}
-
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
-
-/* =========================================
-   COVER OVERLAY & INVITATION CONTENT
-   ========================================= */
-.cover-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    background: radial-gradient(circle at center, rgba(253, 252, 251, 0.94), rgba(235, 232, 225, 0.97));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    transition: opacity 0.85s ease, transform 0.85s ease;
-}
-
-.cover-overlay.opened {
-    opacity: 0;
-    transform: translateY(-30px);
-    pointer-events: none;
-}
-
-.cover-content {
-    max-width: 480px;
-    width: 100%;
-    text-align: center;
-    padding: 3.5rem 2rem;
-}
-
-.couple-title {
-    font-size: clamp(2.8rem, 6vw, 4rem);
-    font-style: italic;
-    margin: 0.5rem 0;
-}
-
-.date-badge {
-    letter-spacing: 0.3em;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-}
-
-.guest-box {
-    margin: 2rem 0;
-    padding: 1.2rem;
-    border-top: 1px solid rgba(181, 154, 109, 0.25);
-    border-bottom: 1px solid rgba(181, 154, 109, 0.25);
-}
-
-.guest-label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-.guest-name {
-    font-size: 1.5rem;
-    margin-top: 0.3rem;
-}
-
-.hero {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-names {
-    font-size: clamp(3rem, 7vw, 5.2rem);
-    line-height: 1.1;
-    margin: 1rem 0 2rem;
-}
-
-.ampersand {
-    font-style: italic;
-    color: var(--accent-gold);
-    font-size: 0.7em;
-}
-
-.verse {
-    max-width: 620px;
-    margin: 0 auto;
-    font-style: italic;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-}
-
-.verse span#out-verse-source-wrap {
-    display: inline-block;
-    margin-top: 0.6rem;
-    font-style: normal;
-    font-weight: 500;
-    color: var(--accent-gold);
-}
-
-.section-header { margin-bottom: 3rem; }
-.section-header h2 { font-size: 2.6rem; }
-
-.couple-grid, .events-grid, .rsvp-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.couple-card {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.photo-frame {
-    width: 190px;
-    height: 240px;
-    margin: 0 auto 1.5rem;
-    border-radius: 100px 100px 20px 20px;
-    overflow: hidden;
-    border: 4px solid #fff;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-}
-
-.photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.couple-card:hover .photo-frame img { transform: scale(1.06); }
-.couple-card h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-.parents { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
-.social-link { color: var(--accent-gold); text-decoration: none; font-size: 0.85rem; }
-
-.countdown-box { max-width: 720px; margin: 0 auto; }
-.countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.time-item span {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    color: var(--accent-gold);
-    line-height: 1;
-}
-
-.time-item small {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-}
-
-.divider {
-    width: 50px;
-    height: 1px;
-    background: var(--accent-gold);
-    margin: 1rem auto;
-}
-
-.event-date { font-weight: 500; margin-bottom: 0.3rem; }
-.event-time { color: var(--accent-gold); margin-bottom: 1rem; }
-.event-venue { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem; }
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-}
-
-.gallery-item {
-    border-radius: 18px;
-    overflow: hidden;
-    height: 340px;
-    box-shadow: var(--shadow-soft);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s ease;
-}
-
-.gallery-item:hover img { transform: scale(1.07); }
-
-.rsvp-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.rsvp-form input,
-.rsvp-form select,
-.rsvp-form textarea {
-    width: 100%;
-    padding: 0.85rem 1.1rem;
-    border-radius: 12px;
-    border: 1px solid rgba(181, 154, 109, 0.3);
-    background: rgba(255, 255, 255, 0.75);
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    color: var(--text-main);
-    outline: none;
-}
-
-.wishes-list {
-    margin-top: 1.5rem;
-    max-height: 200px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.wish-item {
-    background: rgba(255, 255, 255, 0.65);
-    padding: 0.9rem 1rem;
-    border-radius: 12px;
-    font-size: 0.85rem;
-}
-
-.wish-header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 500;
-    margin-bottom: 0.3rem;
-}
-
-.wish-badge { font-size: 0.7rem; color: var(--accent-gold); }
-.gift-desc { font-size: 0.9rem; color: var(--text-muted); margin: 1rem 0 1.5rem; }
-
-.bank-box {
-    padding: 1.5rem;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px dashed var(--accent-gold);
-}
-
-.bank-name { font-weight: 500; letter-spacing: 0.15em; color: var(--accent-gold); }
-.account-number { font-family: var(--font-serif); font-size: 2rem; font-weight: 700; margin: 0.3rem 0; }
-.account-holder { margin-bottom: 1rem; }
-
-.footer {
-    padding: 4rem 1.5rem 6rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.footer-names {
-    font-size: 2.4rem;
-    font-style: italic;
-    margin-top: 1rem;
-    color: var(--accent-gold);
-}
-
-/* =========================================
-   MODAL & TOAST
-   ========================================= */
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(58, 56, 53, 0.5);
-    backdrop-filter: blur(6px);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-}
-
-.modal-box {
-    max-width: 440px;
-    width: 100%;
-    background: #fcfbf9;
-}
-
-.modal-actions {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 0.8rem;
-    justify-content: center;
-}
-
-.toast {
-    position: fixed;
-    bottom: 85px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--text-main);
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    z-index: 300;
-    opacity: 0;
-    transition: all 0.4s ease;
-}
-
-.toast.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.9s ease;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const builderSection = document.getElementById("builder-section");
+    const invitationApp = document.getElementById("invitation-app");
+    const builderForm = document.getElementById("builder-form");
+    const backToEditorBtn = document.getElementById("back-to-editor");
+    const clearBuilderBtn = document.getElementById("clear-builder");
+
+    const cover = document.getElementById("cover");
+    const mainContent = document.getElementById("main-content");
+    const openBtn = document.getElementById("open-invitation");
+    const bgMusic = document.getElementById("bg-music");
+    const musicToggle = document.getElementById("music-toggle");
+
+    let targetCountdownDate = null;
+    let isPlaying = false;
+
+    // Tidak ada foto otomatis; murni kosong sampai user memilih file
+    let uploadedGroomPhoto = "";
+    let uploadedBridePhoto = "";
+    let uploadedGalleryPhotos = [];
+
+    // Pastikan seluruh form bersih saat halaman dimuat ulang
+    builderForm.reset();
+
+    // Cek Parameter URL (?to=Nama+Tamu)
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestParam = urlParams.get("to");
+    if (guestParam) {
+        document.getElementById("guest-name").textContent = guestParam;
+    }
+
+    // Event Upload Foto Mempelai Pria
+    document.getElementById("in-groom-photo").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        const statusEl = document.getElementById("status-groom-photo");
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                uploadedGroomPhoto = ev.target.result;
+                statusEl.textContent = `Terpilih: ${file.name}`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            uploadedGroomPhoto = "";
+            statusEl.textContent = "Belum ada foto diunggah";
+        }
+    });
+
+    // Event Upload Foto Mempelai Wanita
+    document.getElementById("in-bride-photo").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        const statusEl = document.getElementById("status-bride-photo");
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                uploadedBridePhoto = ev.target.result;
+                statusEl.textContent = `Terpilih: ${file.name}`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            uploadedBridePhoto = "";
+            statusEl.textContent = "Belum ada foto diunggah";
+        }
+    });
+
+    // Event Upload Foto Galeri
+    document.getElementById("in-gallery-photos").addEventListener("change", (e) => {
+        const files = Array.from(e.target.files).slice(0, 3);
+        const statusEl = document.getElementById("status-gallery-photos");
+        uploadedGalleryPhotos = [];
+
+        if (files.length > 0) {
+            statusEl.textContent = `${files.length} foto galeri dipilih`;
+            files.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    uploadedGalleryPhotos.push(ev.target.result);
+                };
+                reader.readAsDataURL(file);
+            });
+        } else {
+            statusEl.textContent = "Belum ada foto diunggah";
+        }
+    });
+
+    // Submit Form -> Render Hasil Undangan dari Input User
+    builderForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const groomNick = document.getElementById("in-groom-nick").value.trim();
+        const groomFull = document.getElementById("in-groom-full").value.trim();
+        const groomParents = document.getElementById("in-groom-parents").value.trim();
+        const groomIg = document.getElementById("in-groom-ig").value.trim();
+
+        const brideNick = document.getElementById("in-bride-nick").value.trim();
+        const brideFull = document.getElementById("in-bride-full").value.trim();
+        const brideParents = document.getElementById("in-bride-parents").value.trim();
+        const brideIg = document.getElementById("in-bride-ig").value.trim();
+
+        const rawDate = document.getElementById("in-countdown-date").value;
+        const dateText = document.getElementById("in-date-text").value.trim();
+        const akadTime = document.getElementById("in-akad-time").value.trim();
+        const resepsiTime = document.getElementById("in-resepsi-time").value.trim();
+        const venueName = document.getElementById("in-venue-name").value.trim();
+        const venueAddress = document.getElementById("in-venue-address").value.trim();
+        const mapsUrl = document.getElementById("in-maps-url").value.trim();
+
+        const verse = document.getElementById("in-verse").value.trim();
+        const verseSource = document.getElementById("in-verse-source").value.trim();
+        const bankName = document.getElementById("in-bank-name").value.trim();
+        const bankNumber = document.getElementById("in-bank-number").value.trim();
+        const bankHolder = document.getElementById("in-bank-holder").value.trim();
+
+        // Sampul & Judul
+        document.title = `The Wedding of ${groomNick} & ${brideNick}`;
+        document.getElementById("out-cover-couple").textContent = `${groomNick} & ${brideNick}`;
+        document.getElementById("out-footer-couple").textContent = `${groomNick} & ${brideNick}`;
+
+        if (rawDate) {
+            const d = new Date(rawDate);
+            targetCountdownDate = d.getTime();
+            const day = String(d.getDate()).padStart(2, "0");
+            const month = String(d.getMonth() + 1).padStart(2, "0");
+            const year = d.getFullYear();
+            document.getElementById("out-cover-date").textContent = `${day} . ${month} . ${year}`;
+        }
+
+        // Hero & Kutipan
+        document.getElementById("out-hero-groom").textContent = groomFull.split(",")[0];
+        document.getElementById("out-hero-bride").textContent = brideFull.split(",")[0];
+
+        const verseBox = document.getElementById("out-verse-box");
+        if (verse) {
+            verseBox.classList.remove("hidden");
+            document.getElementById("out-verse").textContent = verse;
+            const sourceWrap = document.getElementById("out-verse-source-wrap");
+            if (verseSource) {
+                sourceWrap.classList.remove("hidden");
+                document.getElementById("out-verse-source").textContent = verseSource;
+            } else {
+                sourceWrap.classList.add("hidden");
+            }
+        } else {
+            verseBox.classList.add("hidden");
+        }
+
+        // Mempelai Pria (Bingkai foto hanya tampil jika foto diunggah)
+        document.getElementById("out-groom-full").textContent = groomFull;
+        document.getElementById("out-groom-parents").textContent = groomParents;
+
+        const outGroomIg = document.getElementById("out-groom-ig");
+        if (groomIg) {
+            outGroomIg.classList.remove("hidden");
+            outGroomIg.textContent = groomIg.startsWith("@") ? groomIg : `@${groomIg}`;
+            outGroomIg.href = `https://instagram.com/${groomIg.replace("@", "")}`;
+        } else {
+            outGroomIg.classList.add("hidden");
+        }
+
+        const groomPhotoContainer = document.getElementById("groom-photo-container");
+        const outGroomImg = document.getElementById("out-groom-photo");
+        if (uploadedGroomPhoto) {
+            outGroomImg.src = uploadedGroomPhoto;
+            groomPhotoContainer.classList.remove("hidden");
+        } else {
+            outGroomImg.src = "";
+            groomPhotoContainer.classList.add("hidden");
+        }
+
+        // Mempelai Wanita (Bingkai foto hanya tampil jika foto diunggah)
+        document.getElementById("out-bride-full").textContent = brideFull;
+        document.getElementById("out-bride-parents").textContent = brideParents;
+
+        const outBrideIg = document.getElementById("out-bride-ig");
+        if (brideIg) {
+            outBrideIg.classList.remove("hidden");
+            outBrideIg.textContent = brideIg.startsWith("@") ? brideIg : `@${brideIg}`;
+            outBrideIg.href = `https://instagram.com/${brideIg.replace("@", "")}`;
+        } else {
+            outBrideIg.classList.add("hidden");
+        }
+
+        const bridePhotoContainer = document.getElementById("bride-photo-container");
+        const outBrideImg = document.getElementById("out-bride-photo");
+        if (uploadedBridePhoto) {
+            outBrideImg.src = uploadedBridePhoto;
+            bridePhotoContainer.classList.remove("hidden");
+        } else {
+            outBrideImg.src = "";
+            bridePhotoContainer.classList.add("hidden");
+        }
+
+        // Detail Acara
+        document.querySelectorAll(".out-date-text").forEach(el => el.textContent = dateText);
+        document.getElementById("out-akad-time").textContent = akadTime;
+        document.getElementById("out-resepsi-time").textContent = resepsiTime;
+        document.querySelectorAll(".out-venue-name").forEach(el => el.textContent = venueName);
+        document.querySelectorAll(".out-venue-address").forEach(el => el.textContent = venueAddress);
+
+        document.querySelectorAll(".out-maps-url").forEach(el => {
+            if (mapsUrl) {
+                el.href = mapsUrl;
+                el.classList.remove("hidden");
+            } else {
+                el.classList.add("hidden");
+            }
+        });
+
+        // Galeri Foto (Hanya tampil jika ada foto diunggah)
+        const gallerySection = document.getElementById("gallery-section");
+        const galleryGrid = document.getElementById("out-gallery-grid");
+        galleryGrid.innerHTML = "";
+        if (uploadedGalleryPhotos.length > 0) {
+            gallerySection.classList.remove("hidden");
+            uploadedGalleryPhotos.forEach((src, index) => {
+                const item = document.createElement("div");
+                item.className = "gallery-item";
+                item.innerHTML = `<img src="${src}" alt="Galeri ${index + 1}">`;
+                galleryGrid.appendChild(item);
+            });
+        } else {
+            gallerySection.classList.add("hidden");
+        }
+
+        // Amplop Digital (Hanya tampil jika bank & nomor rekening diisi)
+        const giftCardBox = document.getElementById("gift-card-box");
+        if (bankName && bankNumber) {
+            giftCardBox.classList.remove("hidden");
+            document.getElementById("out-bank-name").textContent = bankName;
+            document.getElementById("out-bank-number").textContent = bankNumber;
+            document.getElementById("copy-rek-btn").setAttribute("data-copy", bankNumber);
+
+            const holderWrap = document.getElementById("out-bank-holder-wrap");
+            if (bankHolder) {
+                holderWrap.classList.remove("hidden");
+                document.getElementById("out-bank-holder").textContent = bankHolder;
+            } else {
+                holderWrap.classList.add("hidden");
+            }
+        } else {
+            giftCardBox.classList.add("hidden");
+        }
+
+        // Tampilkan Halaman Undangan
+        builderSection.classList.add("hidden");
+        invitationApp.classList.remove("hidden");
+        cover.style.display = "flex";
+        cover.classList.remove("opened");
+        mainContent.classList.add("hidden");
+        updateCountdown();
+        window.scrollTo(0, 0);
+
+        showToast("Undangan berhasil dibuat!");
+    });
+
+    // Kembali ke Form Editor
+    backToEditorBtn.addEventListener("click", () => {
+        invitationApp.classList.add("hidden");
+        builderSection.classList.remove("hidden");
+        bgMusic.pause();
+        isPlaying = false;
+        musicToggle.classList.remove("playing");
+        window.scrollTo(0, 0);
+    });
+
+    // Kosongkan Semua Form
+    clearBuilderBtn.addEventListener("click", () => {
+        builderForm.reset();
+        uploadedGroomPhoto = "";
+        uploadedBridePhoto = "";
+        uploadedGalleryPhotos = [];
+        document.getElementById("status-groom-photo").textContent = "Belum ada foto diunggah";
+        document.getElementById("status-bride-photo").textContent = "Belum ada foto diunggah";
+        document.getElementById("status-gallery-photos").textContent = "Belum ada foto diunggah";
+        showToast("Semua kolom dan foto telah dikosongkan.");
+    });
+
+    // Buka Sampul Undangan
+    openBtn.addEventListener("click", () => {
+        cover.classList.add("opened");
+        mainContent.classList.remove("hidden");
+        musicToggle.classList.remove("hidden");
+
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            musicToggle.classList.add("playing");
+        }).catch(() => { isPlaying = false; });
+
+        setTimeout(() => {
+            cover.style.display = "none";
+            triggerReveal();
+        }, 850);
+    });
+
+    musicToggle.addEventListener("click", () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            musicToggle.classList.remove("playing");
+        } else {
+            bgMusic.play();
+            musicToggle.classList.add("playing");
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // Countdown Timer
+    const updateCountdown = () => {
+        if (!targetCountdownDate) return;
+        const now = new Date().getTime();
+        const distance = targetCountdownDate - now;
+
+        if (distance < 0) {
+            document.getElementById("days").textContent = "00";
+            document.getElementById("hours").textContent = "00";
+            document.getElementById("minutes").textContent = "00";
+            document.getElementById("seconds").textContent = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").textContent = String(days).padStart(2, "0");
+        document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+        document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+        document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    };
+    setInterval(updateCountdown, 1000);
+
+    // RSVP & Ucapan
+    const rsvpForm = document.getElementById("rsvp-form");
+    const wishesList = document.getElementById("wishes-list");
+
+    rsvpForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("sender-name").value.trim();
+        const status = document.getElementById("attendance").value;
+        const message = document.getElementById("wish-message").value.trim();
+
+        const wishItem = document.createElement("div");
+        wishItem.className = "wish-item";
+        wishItem.innerHTML = `
+            <div class="wish-header">
+                <span>${escapeHTML(name)}</span>
+                <span class="wish-badge">${escapeHTML(status)}</span>
+            </div>
+            <p>${escapeHTML(message)}</p>
+        `;
+        wishesList.prepend(wishItem);
+        rsvpForm.reset();
+        showToast("Terima kasih atas doa dan konfirmasi Anda!");
+    });
+
+    // Salin Rekening & Link Tamu
+    document.getElementById("copy-rek-btn").addEventListener("click", function () {
+        const rek = this.getAttribute("data-copy");
+        navigator.clipboard.writeText(rek).then(() => showToast("Nomor rekening berhasil disalin!"));
+    });
+
+    const guestModal = document.getElementById("guest-modal");
+    document.getElementById("share-guest-btn").addEventListener("click", () => {
+        guestModal.classList.remove("hidden");
+    });
+    document.getElementById("close-guest-modal").addEventListener("click", () => {
+        guestModal.classList.add("hidden");
+    });
+    document.getElementById("copy-guest-link").addEventListener("click", () => {
+        const guestName = document.getElementById("custom-guest-input").value.trim() || "Tamu Undangan";
+        const baseUrl = window.location.origin + window.location.pathname;
+        const shareUrl = `${baseUrl}?to=${encodeURIComponent(guestName)}`;
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            showToast(`Link untuk "${guestName}" berhasil disalin!`);
+            guestModal.classList.add("hidden");
+        });
+    });
+
+    function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function escapeHTML(str) {
+        return str.replace(/[&<>"']/g, (m) => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        }[m]));
+    }
+
+    // Scroll Reveal
+    const reveals = document.querySelectorAll(".reveal");
+    function triggerReveal() {
+        const windowHeight = window.innerHeight;
+        reveals.forEach((el) => {
+            if (el.getBoundingClientRect().top < windowHeight - 80) {
+                el.classList.add("active");
+            }
+        });
+    }
+    window.addEventListener("scroll", triggerReveal);
+
+    // Partikel Cahaya Ethereal Canvas
+    const canvas = document.getElementById("ethereal-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 3 + 1;
+            this.speedY = -(Math.random() * 0.4 + 0.15);
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.5 + 0.15;
+        }
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            if (this.y < -10) {
+                this.y = canvas.height + 10;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(181, 154, 109, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < 45; i++) particles.push(new Particle());
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => { p.update(); p.draw(); });
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+});
