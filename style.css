@@ -186,7 +186,7 @@ h1, h2, h3 {
     padding: 0.75rem 1rem;
     border-radius: 12px;
     border: 1px solid rgba(181, 154, 109, 0.35);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     font-family: var(--font-sans);
     font-size: 0.88rem;
     color: var(--text-main);
@@ -200,6 +200,14 @@ h1, h2, h3 {
     border-color: var(--accent-gold);
 }
 
+.file-status {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 .builder-actions {
     grid-column: 1 / -1;
     margin-top: 1.5rem;
@@ -210,14 +218,14 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   FLOATING CONTROLS (EDIT, SHARE, MUSIC)
+   FLOATING CONTROLS
    ========================================= */
 .floating-edit-btn {
     position: fixed;
     bottom: 24px;
     left: 24px;
     z-index: 150;
-    background: rgba(58, 56, 53, 0.85);
+    background: rgba(58, 56, 53, 0.88);
     backdrop-filter: blur(8px);
     color: #fff;
     border: 1px solid rgba(255,255,255,0.2);
@@ -236,9 +244,9 @@ h1, h2, h3 {
 .floating-share-btn {
     position: fixed;
     bottom: 24px;
-    left: 165px;
+    left: 145px;
     z-index: 150;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
     color: var(--text-main);
     border: 1px solid var(--accent-gold);
@@ -364,7 +372,7 @@ h1, h2, h3 {
     font-size: 0.95rem;
 }
 
-.verse span {
+.verse span#out-verse-source-wrap {
     display: inline-block;
     margin-top: 0.6rem;
     font-style: normal;
@@ -381,7 +389,12 @@ h1, h2, h3 {
     gap: 2rem;
 }
 
-.couple-card { text-align: center; }
+.couple-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .photo-frame {
     width: 190px;
