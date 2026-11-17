@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethereal Wedding Invitation Maker</title>
+    <title>Ethereal Wedding Invitation Studio</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,14 +18,14 @@
     <canvas id="ethereal-canvas"></canvas>
 
     <!-- =========================================================
-         BAGIAN 1: FORMULIR KUSTOMISASI (KOSONG TOTAL)
+         BAGIAN 1: FORMULIR PEMBUAT UNDANGAN (KOSONG MANUAL)
          ========================================================= -->
     <section id="builder-section" class="builder-wrapper">
         <div class="container">
             <div class="builder-header text-center">
                 <p class="subtitle">ETHEREAL WEDDING STUDIO</p>
                 <h1>Buat Undangan Pernikahan Anda</h1>
-                <p class="builder-desc">Isi data pernikahan dan unggah foto secara manual di bawah ini untuk menghasilkan undangan digital bernuansa ethereal dan elegan.</p>
+                <p class="builder-desc">Isi data pernikahan dan unggah foto secara manual di bawah ini, lalu klik tombol di bawah untuk melihat hasil undangan ethereal Anda.</p>
             </div>
 
             <form id="builder-form" class="builder-grid" autocomplete="off">
@@ -33,23 +33,23 @@
                 <div class="glass-card builder-card">
                     <h3>1. Mempelai Pria</h3>
                     <div class="form-group">
-                        <label>Nama Panggilan (Untuk Sampul) *</label>
-                        <input type="text" id="in-groom-nick" required>
+                        <label>Nama Panggilan (Untuk Sampul)</label>
+                        <input type="text" id="in-groom-nick">
                     </div>
                     <div class="form-group">
-                        <label>Nama Lengkap &amp; Gelar *</label>
-                        <input type="text" id="in-groom-full" required>
+                        <label>Nama Lengkap &amp; Gelar</label>
+                        <input type="text" id="in-groom-full">
                     </div>
                     <div class="form-group">
-                        <label>Keterangan Orang Tua *</label>
-                        <input type="text" id="in-groom-parents" required>
+                        <label>Keterangan Orang Tua</label>
+                        <input type="text" id="in-groom-parents">
                     </div>
                     <div class="form-group">
-                        <label>Username Instagram (Opsional)</label>
+                        <label>Username Instagram</label>
                         <input type="text" id="in-groom-ig">
                     </div>
                     <div class="form-group">
-                        <label>Upload Foto Mempelai Pria (Opsional)</label>
+                        <label>Upload Foto Mempelai Pria</label>
                         <input type="file" id="in-groom-photo" accept="image/*">
                         <small class="file-status" id="status-groom-photo">Belum ada foto diunggah</small>
                     </div>
@@ -59,23 +59,23 @@
                 <div class="glass-card builder-card">
                     <h3>2. Mempelai Wanita</h3>
                     <div class="form-group">
-                        <label>Nama Panggilan (Untuk Sampul) *</label>
-                        <input type="text" id="in-bride-nick" required>
+                        <label>Nama Panggilan (Untuk Sampul)</label>
+                        <input type="text" id="in-bride-nick">
                     </div>
                     <div class="form-group">
-                        <label>Nama Lengkap &amp; Gelar *</label>
-                        <input type="text" id="in-bride-full" required>
+                        <label>Nama Lengkap &amp; Gelar</label>
+                        <input type="text" id="in-bride-full">
                     </div>
                     <div class="form-group">
-                        <label>Keterangan Orang Tua *</label>
-                        <input type="text" id="in-bride-parents" required>
+                        <label>Keterangan Orang Tua</label>
+                        <input type="text" id="in-bride-parents">
                     </div>
                     <div class="form-group">
-                        <label>Username Instagram (Opsional)</label>
+                        <label>Username Instagram</label>
                         <input type="text" id="in-bride-ig">
                     </div>
                     <div class="form-group">
-                        <label>Upload Foto Mempelai Wanita (Opsional)</label>
+                        <label>Upload Foto Mempelai Wanita</label>
                         <input type="file" id="in-bride-photo" accept="image/*">
                         <small class="file-status" id="status-bride-photo">Belum ada foto diunggah</small>
                     </div>
@@ -85,31 +85,31 @@
                 <div class="glass-card builder-card">
                     <h3>3. Waktu &amp; Lokasi Acara</h3>
                     <div class="form-group">
-                        <label>Tanggal &amp; Jam Utama (Untuk Hitung Mundur) *</label>
-                        <input type="datetime-local" id="in-countdown-date" required>
+                        <label>Tanggal &amp; Jam Utama (Hitung Mundur)</label>
+                        <input type="datetime-local" id="in-countdown-date">
                     </div>
                     <div class="form-group">
-                        <label>Teks Hari &amp; Tanggal Tampilan *</label>
-                        <input type="text" id="in-date-text" required>
+                        <label>Teks Hari &amp; Tanggal Tampilan</label>
+                        <input type="text" id="in-date-text">
                     </div>
                     <div class="form-group">
-                        <label>Waktu Akad Nikah *</label>
-                        <input type="text" id="in-akad-time" required>
+                        <label>Waktu Akad Nikah</label>
+                        <input type="text" id="in-akad-time">
                     </div>
                     <div class="form-group">
-                        <label>Waktu Resepsi *</label>
-                        <input type="text" id="in-resepsi-time" required>
+                        <label>Waktu Resepsi</label>
+                        <input type="text" id="in-resepsi-time">
                     </div>
                     <div class="form-group">
-                        <label>Nama Gedung / Venue *</label>
-                        <input type="text" id="in-venue-name" required>
+                        <label>Nama Gedung / Venue</label>
+                        <input type="text" id="in-venue-name">
                     </div>
                     <div class="form-group">
-                        <label>Alamat Lengkap *</label>
-                        <input type="text" id="in-venue-address" required>
+                        <label>Alamat Lengkap</label>
+                        <input type="text" id="in-venue-address">
                     </div>
                     <div class="form-group">
-                        <label>Link Google Maps (Opsional)</label>
+                        <label>Link Google Maps</label>
                         <input type="url" id="in-maps-url">
                     </div>
                 </div>
@@ -118,36 +118,36 @@
                 <div class="glass-card builder-card">
                     <h3>4. Galeri, Kutipan &amp; Amplop Digital</h3>
                     <div class="form-group">
-                        <label>Ayat / Kutipan Pernikahan (Opsional)</label>
+                        <label>Ayat / Kutipan Pernikahan</label>
                         <textarea id="in-verse" rows="2"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Sumber Kutipan (Opsional)</label>
+                        <label>Sumber Kutipan</label>
                         <input type="text" id="in-verse-source">
                     </div>
                     <div class="form-group">
-                        <label>Upload Foto Galeri (Maks. 3 foto, Opsional)</label>
+                        <label>Upload Foto Galeri (Maks. 3 foto)</label>
                         <input type="file" id="in-gallery-photos" accept="image/*" multiple>
                         <small class="file-status" id="status-gallery-photos">Belum ada foto diunggah</small>
                     </div>
                     <div class="form-group">
-                        <label>Nama Bank / E-Wallet (Opsional)</label>
+                        <label>Nama Bank / E-Wallet</label>
                         <input type="text" id="in-bank-name">
                     </div>
                     <div class="form-group">
-                        <label>Nomor Rekening / E-Wallet (Opsional)</label>
+                        <label>Nomor Rekening / E-Wallet</label>
                         <input type="text" id="in-bank-number">
                     </div>
                     <div class="form-group">
-                        <label>Atas Nama Rekening (Opsional)</label>
+                        <label>Atas Nama Rekening</label>
                         <input type="text" id="in-bank-holder">
                     </div>
                 </div>
 
                 <!-- Tombol Aksi -->
                 <div class="builder-actions text-center">
-                    <button type="submit" class="btn-ethereal btn-lg">Buat &amp; Lihat Hasil Undangan</button>
-                    <button type="button" id="clear-builder" class="btn-outline">Hapus Semua Isian</button>
+                    <button type="submit" id="btn-generate-result" class="btn-ethereal btn-lg">Buat &amp; Lihat Hasil Undangan</button>
+                    <button type="button" id="clear-builder" class="btn-outline">Kosongkan Semua Form</button>
                 </div>
             </form>
         </div>
@@ -164,15 +164,15 @@
         </audio>
         
         <!-- Tombol Kontrol Melayang -->
-        <button id="back-to-editor" class="floating-edit-btn" title="Edit Isi Undangan">✎ Edit Data</button>
-        <button id="share-guest-btn" class="floating-share-btn" title="Buat Link Tamu">🔗 Link Tamu</button>
-        <button id="music-toggle" class="music-btn hidden" aria-label="Toggle Music">♪</button>
+        <button type="button" id="back-to-editor" class="floating-edit-btn" title="Edit Isi Undangan">✎ Edit Data</button>
+        <button type="button" id="share-guest-btn" class="floating-share-btn" title="Buat Link Tamu">🔗 Link Tamu</button>
+        <button type="button" id="music-toggle" class="music-btn hidden" aria-label="Toggle Music">♪</button>
 
-        <!-- SAMPUL PEMBUKA -->
+        <!-- SAMPUL PEMBUKA (COVER OVERLAY) -->
         <section id="cover" class="cover-overlay">
-            <div class="cover-content glass-card fade-in">
+            <div class="cover-content glass-card">
                 <p class="subtitle">THE WEDDING OF</p>
-                <h1 id="out-cover-couple" class="couple-title"></h1>
+                <h1 id="out-cover-couple" class="couple-title">Mempelai Pria &amp; Wanita</h1>
                 <p id="out-cover-date" class="date-badge"></p>
                 
                 <div class="guest-box">
@@ -180,7 +180,7 @@
                     <h3 id="guest-name" class="guest-name">Tamu Undangan</h3>
                 </div>
 
-                <button id="open-invitation" class="btn-ethereal">
+                <button type="button" id="open-invitation" class="btn-ethereal">
                     Buka Undangan
                 </button>
             </div>
@@ -194,9 +194,9 @@
                 <div class="container text-center">
                     <p class="subtitle">WE ARE GETTING MARRIED</p>
                     <h1 class="hero-names">
-                        <span id="out-hero-groom"></span>
+                        <span id="out-hero-groom">Mempelai Pria</span>
                         <br><span class="ampersand">&amp;</span><br>
-                        <span id="out-hero-bride"></span>
+                        <span id="out-hero-bride">Mempelai Wanita</span>
                     </h1>
                     <p id="out-verse-box" class="verse hidden">
                         "<span id="out-verse"></span>"
@@ -230,4 +230,129 @@
                                 <img id="out-bride-photo" src="" alt="Mempelai Wanita">
                             </div>
                             <h3 id="out-bride-full"></h3>
-                            <p id="out-bride-parents" class="
+                            <p id="out-bride-parents" class="parents"></p>
+                            <a id="out-bride-ig" href="#" target="_blank" class="social-link hidden"></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hitung Mundur -->
+            <section class="countdown-section section-padding reveal">
+                <div class="container text-center">
+                    <div class="glass-card countdown-box">
+                        <p class="subtitle">MENANTI HARI BAHAGIA</p>
+                        <div id="countdown" class="countdown-grid">
+                            <div class="time-item"><span id="days">00</span><small>Hari</small></div>
+                            <div class="time-item"><span id="hours">00</span><small>Jam</small></div>
+                            <div class="time-item"><span id="minutes">00</span><small>Menit</small></div>
+                            <div class="time-item"><span id="seconds">00</span><small>Detik</small></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detail Acara -->
+            <section class="events section-padding reveal">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <p class="subtitle">SAVE THE DATE</p>
+                        <h2>Rangkaian Acara</h2>
+                    </div>
+
+                    <div class="events-grid">
+                        <div class="event-card glass-card text-center">
+                            <h3>Akad Nikah</h3>
+                            <div class="divider"></div>
+                            <p class="event-date out-date-text"></p>
+                            <p id="out-akad-time" class="event-time"></p>
+                            <p class="event-venue"><strong class="out-venue-name"></strong><br><span class="out-venue-address"></span></p>
+                            <a href="#" target="_blank" class="btn-outline out-maps-url hidden">Lihat Lokasi</a>
+                        </div>
+
+                        <div class="event-card glass-card text-center">
+                            <h3>Resepsi Pernikahan</h3>
+                            <div class="divider"></div>
+                            <p class="event-date out-date-text"></p>
+                            <p id="out-resepsi-time" class="event-time"></p>
+                            <p class="event-venue"><strong class="out-venue-name"></strong><br><span class="out-venue-address"></span></p>
+                            <a href="#" target="_blank" class="btn-outline out-maps-url hidden">Lihat Lokasi</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Galeri Foto -->
+            <section id="gallery-section" class="gallery section-padding reveal hidden">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <p class="subtitle">MOMENTS</p>
+                        <h2>Galeri Kasih</h2>
+                    </div>
+                    <div id="out-gallery-grid" class="gallery-grid"></div>
+                </div>
+            </section>
+
+            <!-- Amplop Digital & RSVP -->
+            <section class="rsvp-gift section-padding reveal">
+                <div class="container">
+                    <div class="rsvp-grid">
+                        <div class="glass-card">
+                            <p class="subtitle">KONFIRMASI KEHADIRAN</p>
+                            <h3>RSVP &amp; Ucapan</h3>
+                            <form id="rsvp-form" class="rsvp-form">
+                                <input type="text" id="sender-name" placeholder="Nama Lengkap Anda" required>
+                                <select id="attendance" required>
+                                    <option value="" disabled selected>Konfirmasi Kehadiran</option>
+                                    <option value="Hadir">Ya, Saya Akan Hadir</option>
+                                    <option value="Tidak Hadir">Maaf, Berhalangan Hadir</option>
+                                </select>
+                                <textarea id="wish-message" rows="3" placeholder="Tuliskan doa & ucapan hangat Anda..." required></textarea>
+                                <button type="submit" class="btn-ethereal w-100">Kirim Ucapan</button>
+                            </form>
+                            <div id="wishes-list" class="wishes-list"></div>
+                        </div>
+
+                        <!-- Kartu Amplop Digital -->
+                        <div id="gift-card-box" class="glass-card text-center gift-card hidden">
+                            <p class="subtitle">WEDDING GIFT</p>
+                            <h3>Tanda Kasih</h3>
+                            <p class="gift-desc">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat mengirimkannya melalui:</p>
+                            
+                            <div class="bank-box">
+                                <p id="out-bank-name" class="bank-name"></p>
+                                <p id="out-bank-number" class="account-number"></p>
+                                <p id="out-bank-holder-wrap" class="account-holder">a.n. <span id="out-bank-holder"></span></p>
+                                <button type="button" id="copy-rek-btn" class="btn-outline copy-btn" data-copy="">Salin Nomor Rekening</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer text-center">
+                <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+                <h2 id="out-footer-couple" class="footer-names"></h2>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modal Generator Link Tamu -->
+    <div id="guest-modal" class="modal-backdrop hidden">
+        <div class="glass-card modal-box text-center">
+            <h3>Buat Link Khusus Tamu</h3>
+            <p class="gift-desc">Masukkan nama tamu untuk membuat tautan undangan personal:</p>
+            <input type="text" id="custom-guest-input" class="modal-input">
+            <div class="modal-actions">
+                <button type="button" id="copy-guest-link" class="btn-ethereal">Salin Link Tamu</button>
+                <button type="button" id="close-guest-modal" class="btn-outline">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
