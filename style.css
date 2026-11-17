@@ -1,6 +1,3 @@
-/* =========================================
-   VARIABLES & RESET
-   ========================================= */
 :root {
     --bg-gradient: linear-gradient(135deg, #fdfcfb 0%, #f3efe8 50%, #e9ede8 100%);
     --glass-bg: rgba(255, 255, 255, 0.65);
@@ -80,9 +77,6 @@ h1, h2, h3 {
 .w-100 { width: 100%; }
 .hidden { display: none !important; }
 
-/* =========================================
-   BUTTONS
-   ========================================= */
 .btn-ethereal {
     display: inline-block;
     background: var(--accent-gold);
@@ -129,9 +123,6 @@ h1, h2, h3 {
     color: #fff;
 }
 
-/* =========================================
-   BUILDER / CUSTOMIZER PANEL
-   ========================================= */
 .builder-wrapper {
     padding: 4rem 0 6rem;
     position: relative;
@@ -217,9 +208,6 @@ h1, h2, h3 {
     gap: 1rem;
 }
 
-/* =========================================
-   FLOATING CONTROLS
-   ========================================= */
 .floating-edit-btn {
     position: fixed;
     bottom: 24px;
@@ -287,9 +275,6 @@ h1, h2, h3 {
     100% { transform: rotate(360deg); }
 }
 
-/* =========================================
-   COVER OVERLAY & INVITATION CONTENT
-   ========================================= */
 .cover-overlay {
     position: fixed;
     inset: 0;
@@ -547,9 +532,6 @@ h1, h2, h3 {
     color: var(--accent-gold);
 }
 
-/* =========================================
-   MODAL & TOAST
-   ========================================= */
 .modal-backdrop {
     position: fixed;
     inset: 0;
